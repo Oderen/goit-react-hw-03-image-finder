@@ -3,7 +3,6 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Searchbar from './Searchbar/Searchbar';
 import css from '../styles.module.css';
 import Notiflix from 'notiflix';
-// import getData from './API';
 import Modal from './Modal/Modal';
 
 export class App extends Component {
@@ -15,6 +14,7 @@ export class App extends Component {
     status: 'idle',
     largeImageURL: '',
     showModal: false,
+    error: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -39,20 +39,18 @@ export class App extends Component {
           return Promise.reject(new Error('Opps, something went wrong'));
         })
         .then(data => {
-          const { hits, total } = data;
+          const { hits, total, totalHits } = data;
 
           this.setState({
             images: [...images, ...hits],
+            pageCount: Math.ceil(totalHits / 12),
             status: 'resolved',
           });
 
           if (total === 0) {
-            console.log('Ой');
-            this.setState({ status: 'rejected' });
+            Notiflix.Notify.info('Sorry, there is no image found');
+            return this.setState({ status: 'rejected' });
           }
-
-          console.log('State: ', this.state);
-          // console.log(this.state.images.length);
         })
         .catch(error => {
           console.log(error.message);
@@ -79,12 +77,6 @@ export class App extends Component {
     console.log('largeImageURL >>>', largeImgURL);
     this.setState({ largeImageURL: largeImgURL });
     this.toggleModal();
-  };
-
-  AddingNewPhoto = pictures => {
-    return this.setState(({ pageAmount }) => ({
-      pageAmount: pageAmount + pictures,
-    }));
   };
 
   toggleModal = () => {

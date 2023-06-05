@@ -1,6 +1,7 @@
 import css from './ImageGalleryItem.module.css';
 import { Audio } from 'react-loader-spinner';
 import Notiflix from 'notiflix';
+import PropTypes from 'prop-types';
 
 export default function ImageGalleryItem({
   images,
@@ -39,3 +40,10 @@ export default function ImageGalleryItem({
   }
   return;
 }
+
+ImageGalleryItem.propTypes = {
+  images: PropTypes.array.isRequired,
+  error: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+};

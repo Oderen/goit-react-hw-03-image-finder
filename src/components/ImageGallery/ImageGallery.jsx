@@ -1,6 +1,7 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Button from 'components/Button/Button';
 import css from './ImageGallery.module.css';
+import PropTypes from 'prop-types';
 
 export default function ImageGallery({
   images,
@@ -27,3 +28,11 @@ export default function ImageGallery({
     </>
   );
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  pageChanger: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+};

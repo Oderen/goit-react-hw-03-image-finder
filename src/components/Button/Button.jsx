@@ -1,4 +1,5 @@
 import css from './Button.module.css';
+import PropTypes from 'prop-types';
 
 const Button = ({ pageChanger }) => {
   return (
@@ -9,3 +10,7 @@ const Button = ({ pageChanger }) => {
 };
 
 export default Button;
+
+Button.propTypes = {
+  pageChanger: PropTypes.func.isRequired,
+};
