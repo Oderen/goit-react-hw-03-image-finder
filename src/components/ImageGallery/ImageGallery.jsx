@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 export default function ImageGallery({
   images,
   pageChanger,
-  error,
   status,
   onImageClick,
 }) {
@@ -17,7 +16,6 @@ export default function ImageGallery({
           <ul className={css.imageGallery}>
             <ImageGalleryItem
               images={images}
-              error={error}
               status={status}
               onImageClick={onImageClick}
             />
@@ -32,7 +30,6 @@ export default function ImageGallery({
 ImageGallery.propTypes = {
   images: PropTypes.array.isRequired,
   pageChanger: PropTypes.func.isRequired,
-  error: PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   onImageClick: PropTypes.func.isRequired,
 };
