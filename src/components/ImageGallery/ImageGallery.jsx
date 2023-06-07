@@ -11,7 +11,7 @@ export default function ImageGallery({
 }) {
   return (
     <>
-      {images.length && (
+      {images.length > 0 && (
         <div className={css.imageGalleryContainer}>
           <ul className={css.imageGallery}>
             <ImageGalleryItem

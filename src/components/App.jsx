@@ -3,11 +3,11 @@ import { Component } from 'react';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Searchbar from './Searchbar/Searchbar';
 import Modal from './Modal/Modal';
+import Loader from './Loader/Loader';
 
 import css from '../styles.module.css';
 
 import Notiflix from 'notiflix';
-import { Audio } from 'react-loader-spinner';
 
 export class App extends Component {
   state = {
@@ -55,7 +55,7 @@ export class App extends Component {
             return this.setState({ status: 'rejected' });
           }
 
-          if (totalHits < images.length) {
+          if (500 < images.length) {
             return Notiflix.Notify.info(
               'Sorry, there are no more images matching your search'
             );
@@ -104,17 +104,8 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {status === 'pending' ? (
-          <Audio
-            height="80"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperClassName="wrapper-class"
-          />
-        ) : null}
-        {status === 'rejected' ? <h1>Oops, something went wrong</h1> : null}
+        {status === 'pending' && <Loader />}
+        {status === 'rejected' && <h1>Oops, something went wrong</h1>}
         <ImageGallery
           className={css.ImageGallery}
           images={images}
