@@ -88,7 +88,6 @@ export class App extends Component {
   };
 
   handleImageClick = largeImageURL => {
-    console.log('largeImageURL >>>', largeImageURL);
     this.setState({ largeImageURL });
     this.toggleModal();
   };
