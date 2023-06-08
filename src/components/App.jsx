@@ -68,7 +68,7 @@ export class App extends Component {
               isButtonVisible: false,
             });
             return Notiflix.Notify.info(
-              'Sorry, there are no more images matching your request'
+              "Wow, look's like these are are all images"
             );
           }
         })

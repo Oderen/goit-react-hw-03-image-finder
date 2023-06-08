@@ -35,5 +35,3 @@ ImageGallery.propTypes = {
   onImageClick: PropTypes.func.isRequired,
   isButtonVisible: PropTypes.bool.isRequired,
 };
-
-// status === 'resolved'
