@@ -8,6 +8,7 @@ export default function ImageGallery({
   pageChanger,
   status,
   onImageClick,
+  isButtonVisible,
 }) {
   return (
     <>
@@ -20,7 +21,7 @@ export default function ImageGallery({
               onImageClick={onImageClick}
             />
           </ul>
-          {status === 'resolved' && <Button pageChanger={pageChanger} />}
+          {isButtonVisible && <Button pageChanger={pageChanger} />}
         </div>
       )}
     </>
@@ -32,4 +33,7 @@ ImageGallery.propTypes = {
   pageChanger: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
   onImageClick: PropTypes.func.isRequired,
+  isButtonVisible: PropTypes.bool.isRequired,
 };
+
+// status === 'resolved'

@@ -18,6 +18,7 @@ export class App extends Component {
     status: 'idle',
     largeImageURL: '',
     showModal: false,
+    isButtonVisible: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -43,10 +44,11 @@ export class App extends Component {
         })
         .then(data => {
           const { hits, total, totalHits } = data;
+          // console.log('hits.length: ', hits.length);
 
           this.setState(prevState => ({
             images: [...images, ...hits],
-            pictureCount: Math.ceil(totalHits / 12),
+            pictureCount: prevState.pictureCount + hits.length,
             status: 'resolved',
           }));
 
@@ -55,14 +57,26 @@ export class App extends Component {
             return this.setState({ status: 'rejected' });
           }
 
-          if (500 < images.length) {
+          if (totalHits > this.state.pictureCount) {
+            this.setState({
+              isButtonVisible: true,
+            });
+          }
+
+          if (totalHits < this.state.pictureCount) {
+            this.setState({
+              isButtonVisible: false,
+            });
             return Notiflix.Notify.info(
-              'Sorry, there are no more images matching your search'
+              'Sorry, there are no more images matching your request'
             );
           }
         })
         .catch(error => {
           console.log(error.message);
+          this.setState({
+            isButtonVisible: false,
+          });
           this.setState({ status: 'rejected' });
         });
     }
@@ -111,6 +125,8 @@ export class App extends Component {
           pageChanger={this.handleLoadMoreClick}
           status={status}
           onImageClick={this.handleImageClick}
+          isButtonVisible={this.state.isButtonVisible}
+          pictureCount={this.state.pictureCount}
         />
         {this.state.showModal && (
           <Modal closeModal={this.toggleModal} largeImageURL={largeImageURL} />
